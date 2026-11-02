@@ -99,6 +99,7 @@ img{display:block;max-width:100%}
 .ff-from{position:absolute;left:10%;bottom:10%;font-size:clamp(.45rem,1.3vw,.56rem);letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
 
 .face-back{z-index:1;visibility:hidden}
+.env,.g-top>*,.g-hint{visibility:hidden}
 .liner{background-color:var(--liner);background-image:radial-gradient(circle,rgba(231,207,159,.6) 1.1px,transparent 1.6px),repeating-linear-gradient(45deg,rgba(231,207,159,.16) 0 1px,transparent 1px 12px),repeating-linear-gradient(-45deg,rgba(231,207,159,.16) 0 1px,transparent 1px 12px);background-size:16.97px 16.97px,auto,auto}
 .fb-inner{position:absolute;inset:0;border-radius:5px;z-index:1;box-shadow:inset 0 10px 30px rgba(0,0,0,.35)}
 .ecard{position:absolute;left:6%;right:6%;top:5%;height:88%;z-index:2;border-radius:3px;background:var(--grain),#fbf7ef;display:grid;place-items:center;text-align:center;color:var(--ink);box-shadow:0 -4px 14px rgba(0,0,0,.18)}
@@ -157,6 +158,7 @@ img{display:block;max-width:100%}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:26px 5vw;transition:transform .7s var(--ease),background .5s,padding .5s;color:#fff}
 nav.hide{transform:translateY(-110%)}
 nav.solid{background:rgba(251,247,241,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);padding:16px 5vw}
+nav.open{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 nav .logo{font-family:var(--script);font-size:2rem;line-height:1}
 nav ul{display:flex;gap:34px;list-style:none}
 nav ul a{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;position:relative;padding:6px 0}
@@ -175,13 +177,14 @@ nav.open .burger span:last-child{bottom:auto;top:50%;transform:rotate(-45deg)}
 .slides{position:absolute;inset:0}
 .slide{position:absolute;inset:-4%;background-size:cover;background-position:center;opacity:0;transition:opacity 2.2s ease}
 .slide.active{opacity:1;animation:kenburns 9s linear forwards}
-.slide:nth-child(even).active{animation-name:kenburns2}
+.slide.prev{animation:kenburns 9s linear forwards}
+.slide:nth-child(even).active,.slide:nth-child(even).prev{animation-name:kenburns2}
 @keyframes kenburns{from{transform:scale(1.02) translate(0,0)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
 @keyframes kenburns2{from{transform:scale(1.14) translate(1%,1%)}to{transform:scale(1.02) translate(0,0)}}
 .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(20,17,15,.15),rgba(20,17,15,.7) 85%),linear-gradient(to bottom,rgba(20,17,15,.45),transparent 30%,transparent 60%,rgba(20,17,15,.85));pointer-events:none}
 .hero-content{position:relative;z-index:2;padding:0 16px}
 .hero .eyebrow{opacity:0}
-.names{font-family:var(--script);font-size:clamp(4.2rem,14vw,11rem);line-height:.95;margin:.15em 0 .1em;text-shadow:0 10px 50px rgba(0,0,0,.35);white-space:nowrap}
+.names{font-family:var(--script);font-size:clamp(2.8rem,14vw,11rem);line-height:.95;margin:.15em 0 .1em;text-shadow:0 10px 50px rgba(0,0,0,.35);white-space:nowrap}
 .names .ch{display:inline-block;opacity:0;will-change:transform,filter}
 .names .amp{color:var(--gold-light);font-size:.62em;margin:0 .12em;display:inline-block;opacity:0}
 .hero-date{font-family:var(--serif);font-size:clamp(1.1rem,2.6vw,1.7rem);letter-spacing:.4em;opacity:0}
@@ -200,7 +203,7 @@ nav.open .burger span:last-child{bottom:auto;top:50%;transform:rotate(-45deg)}
 .manifesto{padding:clamp(120px,18vw,220px) 6vw;background:var(--ivory);text-align:center}
 .manifesto .eyebrow{color:var(--gold);margin-bottom:40px;display:block}
 .manifesto p{font-family:var(--serif);font-size:clamp(1.7rem,4.2vw,3.4rem);line-height:1.25;max-width:1100px;margin:0 auto}
-.manifesto .w{opacity:.12;transition:opacity .2s}
+.manifesto .w{opacity:.12}
 .manifesto em{font-family:var(--script);font-style:normal;color:var(--gold);font-size:1.15em}
 
 /* =========== SECTION HEAD =========== */
@@ -262,11 +265,11 @@ nav.open .burger span:last-child{bottom:auto;top:50%;transform:rotate(-45deg)}
 /* =========== GALLERY MARQUEE =========== */
 .marquee{background:var(--night);padding:90px 0;overflow:hidden;display:flex;flex-direction:column;gap:22px}
 .marquee .title{color:var(--gold-light);text-align:center;margin-bottom:30px;font-family:var(--script);font-size:clamp(2.6rem,6vw,4rem);line-height:1}
-.mrow{display:flex;gap:22px;width:max-content;animation:marq 60s linear infinite}
+.mrow{display:flex;width:max-content;animation:marq 60s linear infinite}
 .mrow.rev{animation-direction:reverse}
-.mrow img{height:clamp(170px,24vw,300px);aspect-ratio:3/4;object-fit:cover;border-radius:4px;filter:saturate(.85);transition:filter .6s,transform .6s var(--ease)}
+.mrow img{margin-right:22px;height:clamp(170px,24vw,300px);aspect-ratio:3/4;object-fit:cover;border-radius:4px;filter:saturate(.85);transition:filter .6s,transform .6s var(--ease)}
 .mrow img:hover{filter:saturate(1.1);transform:scale(1.04)}
-.mrow img:nth-child(3n){aspect-ratio:4/3}
+.mrow img:nth-child(4n){aspect-ratio:4/3}
 @keyframes marq{to{transform:translateX(-50%)}}
 
 /* =========== VENUE =========== */
@@ -287,7 +290,7 @@ nav.open .burger span:last-child{bottom:auto;top:50%;transform:rotate(-45deg)}
 .vrow h3{font-size:1.6rem;color:var(--gold-light);margin-bottom:4px}
 .vrow p{color:rgba(251,247,241,.7);font-size:.95rem}
 .map{margin-top:clamp(50px,7vw,80px);max-width:1200px;margin-left:auto;margin-right:auto;height:380px;border-radius:4px;overflow:hidden;border:1px solid rgba(231,207,159,.2);position:relative;z-index:2}
-.map iframe{width:100%;height:100%;border:0;filter:invert(.92) hue-rotate(180deg) sepia(.35) saturate(.7) brightness(.95)}
+.map iframe{width:100%;height:100%;border:0}
 
 /* =========== BUTTONS =========== */
 .btn{position:relative;display:inline-flex;align-items:center;gap:14px;padding:18px 40px;border-radius:99px;border:1px solid var(--gold);font-family:var(--sans);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;color:#fff;background:var(--gold);overflow:hidden;isolation:isolate;transition:color .5s var(--ease)}
@@ -316,10 +319,9 @@ nav.open .burger span:last-child{bottom:auto;top:50%;transform:rotate(-45deg)}
 .gift-txt h3{font-size:clamp(2.2rem,4.5vw,3.4rem);margin-bottom:18px}
 .gift-txt>p{color:var(--muted);margin-bottom:36px;max-width:520px}
 .wishes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;perspective:900px}
-.wish{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:1;color:#fff;transform-style:preserve-3d;transition:transform .25s ease-out;box-shadow:0 30px 50px -30px rgba(37,31,26,.6)}
-.wish img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
-.wish:hover img{transform:scale(1.08)}
-.wish::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,17,15,.85),transparent 60%)}
+.wish{position:relative;border-radius:6px;aspect-ratio:1;color:#fff;transform-style:preserve-3d;transition:transform .25s ease-out;box-shadow:0 30px 50px -30px rgba(37,31,26,.6)}
+.wish img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.wish::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(to top,rgba(20,17,15,.85),transparent 60%)}
 .wish div{position:absolute;left:16px;right:16px;bottom:16px;z-index:2;transform:translateZ(30px)}
 .wish b{font-family:var(--serif);font-weight:400;font-size:1.35rem;display:block;line-height:1.1}
 .wish span{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-light)}
@@ -341,6 +343,7 @@ nav.open .burger span:last-child{bottom:auto;top:50%;transform:rotate(-45deg)}
 .pay .btn{width:100%;justify-content:center;padding:16px 20px}
 .copy{all:unset;cursor:pointer;display:block;margin-top:12px;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.6);text-align:center;width:100%}
 .copy:hover{color:var(--gold-light)}
+.chips button:focus-visible,.copy:focus-visible,.qa button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 .pay-qr{text-align:center}
 .pay-qr #qr{background:#fff;padding:10px;border-radius:12px;width:148px;height:148px}
 .pay-qr #qr img,.pay-qr #qr canvas{width:128px!important;height:128px!important}
@@ -422,8 +425,8 @@ footer p.small{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;op
 
 /* =========== RESPONSIVE =========== */
 @media (max-width:900px){
-  nav ul{position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:center;gap:28px;background:var(--night);color:var(--ivory);clip-path:circle(0% at calc(100% - 40px) 40px);transition:clip-path .9s var(--ease)}
-  nav.open ul{clip-path:circle(150% at calc(100% - 40px) 40px)}
+  nav ul{position:fixed;inset:0;flex-direction:column;justify-content:center;align-items:center;gap:28px;background:var(--night);color:var(--ivory);clip-path:circle(0% at calc(100% - 40px) 40px);transition:clip-path .9s var(--ease),visibility 0s .9s;visibility:hidden}
+  nav.open ul{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible;transition-delay:0s}
   nav ul a{font-family:var(--serif);font-size:2rem;letter-spacing:.05em;text-transform:none}
   nav .cta{border:0;padding:6px 0}
   nav.open{color:var(--ivory)!important;background:transparent!important}
@@ -459,7 +462,7 @@ footer p.small{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;op
 <div class="progress-line" aria-hidden="true"></div>
 
 <!-- ================= ENVELOPE ================= -->
-<div id="gate" role="dialog" aria-label="Invitation">
+<div id="gate" role="dialog" aria-modal="true" aria-label="Invitation">
   <div class="g-table"></div>
   <div class="bokeh" id="bokeh"></div>
   <div class="g-noise"></div>
@@ -499,7 +502,7 @@ footer p.small{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;op
 
       <!-- Le faire-part -->
       <div class="invite" id="invite">
-        <div class="inv-cover"><div><span class="script"><span data-cfg="name1">Thom</span> &amp; <span data-cfg="name2">Clarisse</span></span><small data-cfg="dateLabel">12 · 06 · 2027</small></div></div>
+        <div class="inv-cover"></div>
         <svg class="inv-mono inv-anim" viewBox="0 0 60 60" aria-hidden="true"><circle id="invRing" cx="30" cy="30" r="28" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><text x="30" y="36" text-anchor="middle" data-cfg="initials">T&amp;C</text></svg>
         <p class="inv-guest script inv-anim" id="invGuest"></p>
         <p class="inv-small inv-anim">Ensemble avec leurs familles</p>
@@ -808,6 +811,8 @@ const CONFIG = {
   // Cagnotte Revolut : collez ici votre lien (revolut.me/… ou lien de cagnotte Revolut)
   giftUrl: "https://revolut.me/votre-pseudo",
   giftAmounts: [20, 50, 100, 150],
+  // Adresse e-mail de secours si Formspree n'est pas configuré (ouvre l'appli mail de l'invité)
+  rsvpEmail: "",
   giftGoal: 5000,
   giftRaised: 2150,                 // à mettre à jour de temps en temps
 
@@ -863,17 +868,18 @@ $('#goal').textContent = euro(CONFIG.giftGoal);
 // Revolut pay card
 $('#payHandle').textContent = CONFIG.giftUrl.replace(/^https?:\/\/(www\.)?/, '');
 $('#chips').innerHTML = CONFIG.giftAmounts.map((a, i) => `<button type="button" data-a="${a}" class="${i === 1 ? 'on' : ''}">${a} €</button>`).join('');
-$('#payAmount').textContent = CONFIG.giftAmounts[1];
+$('#payAmount').textContent = CONFIG.giftAmounts[1] ?? CONFIG.giftAmounts[0] ?? '';
+if (!CONFIG.giftUrl) { $('.pay').remove(); }
 $$('#chips button').forEach(b => b.addEventListener('click', () => {
   $$('#chips button').forEach(x => x.classList.toggle('on', x === b));
   $('#payAmount').textContent = b.dataset.a;
 }));
-$('#copyBtn').addEventListener('click', async () => {
+$('#copyBtn') && $('#copyBtn').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(CONFIG.giftUrl); $('#copyBtn').textContent = 'Lien copié ✓'; }
   catch { $('#copyBtn').textContent = CONFIG.giftUrl; }
   setTimeout(() => $('#copyBtn').textContent = 'Copier le lien', 2500);
 });
-if (window.QRCode) new QRCode($('#qr'), { text: CONFIG.giftUrl, width: 256, height: 256, colorDark: '#0d0f14', colorLight: '#ffffff' });
+if (window.QRCode && CONFIG.giftUrl) new QRCode($('#qr'), { text: CONFIG.giftUrl, width: 256, height: 256, colorDark: '#0d0f14', colorLight: '#ffffff' });
 
 // Hero slides
 const slides = CONFIG.photos.hero.map((p, i) => {
@@ -885,7 +891,8 @@ const slides = CONFIG.photos.hero.map((p, i) => {
 });
 let cur = 0;
 setInterval(() => {
-  slides[cur].classList.remove('active');
+  slides.forEach(s => s.classList.remove('prev'));
+  slides[cur].classList.replace('active', 'prev');
   cur = (cur + 1) % slides.length;
   slides[cur].classList.add('active');
 }, 6500);
@@ -939,6 +946,11 @@ tick(); setInterval(tick, 1000);
   resize(); addEventListener('resize', resize);
   addEventListener('mousemove', e => { mx = (e.clientX / innerWidth - .5); my = (e.clientY / innerHeight - .5); });
   const N = innerWidth < 700 ? 40 : 80;
+  // Une seule particule dorée pré-dessinée, réutilisée à chaque image
+  const sprite = document.createElement('canvas'); sprite.width = sprite.height = 64;
+  const sg = sprite.getContext('2d'), grd = sg.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grd.addColorStop(0, 'rgba(255,236,190,1)'); grd.addColorStop(.4, 'rgba(231,190,120,.5)'); grd.addColorStop(1, 'rgba(231,190,120,0)');
+  sg.fillStyle = grd; sg.fillRect(0, 0, 64, 64);
   const ps = Array.from({ length: N }, () => ({
     x: Math.random(), y: Math.random(), z: .3 + Math.random() * .7,
     r: .6 + Math.random() * 2.2, vy: .00008 + Math.random() * .00025, ph: Math.random() * 6.28, tw: .5 + Math.random() * 2
@@ -951,10 +963,9 @@ tick(); setInterval(tick, 1000);
       const x = (p.x + Math.sin(p.ph) * .01 + mx * .03 * p.z) * W, y = (p.y + my * .03 * p.z) * H;
       const a = (.35 + .65 * Math.abs(Math.sin(t / 1000 * p.tw + p.ph))) * p.z;
       const r = p.r * dpr * p.z * 3;
-      const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(255,236,190,${a})`); g.addColorStop(.4, `rgba(231,190,120,${a * .5})`); g.addColorStop(1, 'rgba(231,190,120,0)');
-      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.28); ctx.fill();
+      ctx.globalAlpha = a; ctx.drawImage(sprite, x - r, y - r, r * 2, r * 2);
     }
+    ctx.globalAlpha = 1;
     requestAnimationFrame(loop);
   })(0);
 })();
@@ -1009,8 +1020,9 @@ const Music = (() => {
   return {
     get playing() { return playing; },
     play() {
-      if (CONFIG.music) { audioEl.volume = .5; audioEl.play().catch(() => {}); playing = true; return; }
+      if (CONFIG.music) { audioEl.volume = .5; playing = true; audioEl.play().catch(() => { playing = false; soundBtn.classList.remove('on'); }); return; }
       if (!ctx) init();
+      clearInterval(timer);
       ctx.resume(); nextT = ctx.currentTime + .1;
       master.gain.cancelScheduledValues(ctx.currentTime);
       master.gain.linearRampToValueAtTime(.8, ctx.currentTime + 2);
@@ -1019,7 +1031,7 @@ const Music = (() => {
     stop() {
       if (CONFIG.music) { audioEl.pause(); playing = false; return; }
       master.gain.linearRampToValueAtTime(0, ctx.currentTime + .8);
-      setTimeout(() => clearInterval(timer), 900); playing = false;
+      const id = timer; setTimeout(() => clearInterval(id), 900); playing = false;
     }
   };
 })();
@@ -1046,13 +1058,15 @@ if (hasGsap) {
 // Anchor links
 $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
   const t = $(a.getAttribute('href')); if (!t) return;
-  e.preventDefault(); nav.classList.remove('open');
-  lenis ? lenis.scrollTo(t, { duration: 2, easing: x => 1 - Math.pow(1 - x, 4) }) : t.scrollIntoView({ behavior: 'smooth' });
+  e.preventDefault(); nav.classList.remove('open'); burger.setAttribute('aria-expanded', false);
+  const dest = t.closest('.pin-spacer') || t;
+  lenis ? lenis.scrollTo(dest, { duration: 2, easing: x => 1 - Math.pow(1 - x, 4) }) : dest.scrollIntoView({ behavior: 'smooth' });
 }));
 
 /* ---------- Nav ---------- */
 const nav = $('#nav'), burger = $('.burger');
 burger.addEventListener('click', () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && nav.classList.contains('open')) { nav.classList.remove('open'); burger.setAttribute('aria-expanded', false); burger.focus(); } });
 let lastY = 0;
 addEventListener('scroll', () => {
   const y = scrollY;
@@ -1099,6 +1113,7 @@ const SFX = (() => {
       og.gain.setValueAtTime(.5, t); og.gain.exponentialRampToValueAtTime(.001, t + .2);
       o.connect(og).connect(c.destination); o.start(t); o.stop(t + .22);
     },
+    unlock: () => { const c = get(); c.state !== 'running' && c.resume(); },
     flap: () => paper(.7, 600, 2400, .14),
     slide: () => paper(1.2, 800, 3600, .22),
     whoosh: () => paper(1.4, 300, 5000, .16)
@@ -1151,46 +1166,88 @@ const FX = (() => {
   return { burst };
 })();
 
-let state = 'arriving', idle = null, tiltOn = true;
+let state = 'arriving', idle = null, tiltOn = true, queuedOpen = false;
+const introTls = [];
+const behind = ['main', 'nav', 'footer', '#sound'].map(s => $(s));
+behind.forEach(el => el.inert = true);
 
 function finishIntro() {
   if (state === 'done') return;
   state = 'done';
+  introTls.forEach(t => t.kill()); idle && idle.kill();
   gate.remove(); document.body.classList.remove('locked');
+  behind.forEach(el => el.inert = false);
   nav.classList.remove('hide'); soundBtn.classList.add('ready');
   document.body.dataset.opened = '1';
   lenis && lenis.start();
+  window.ScrollTrigger && ScrollTrigger.refresh();
   heroIntro();
+}
+
+function startMusic() {
+  SFX.unlock();
+  if (!Music.playing) Music.play();
+  soundBtn.classList.add('on');
 }
 
 if (!hasGsap) {
   $('.face-front').style.visibility = 'hidden'; $('.face-back').style.visibility = 'visible';
+  $$('.env,.g-top>*,.g-hint').forEach(e => e.style.visibility = 'visible');
   state = 'ready';
-  env.addEventListener('click', () => { Music.play(); soundBtn.classList.add('on'); finishIntro(); });
+  const go = () => { startMusic(); finishIntro(); };
+  env.addEventListener('click', go);
+  env.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), go()));
+  $('#gSkip').addEventListener('click', finishIntro);
 } else {
   const rx = gsap.quickTo(tilt, 'rotationX', { duration: .9, ease: 'power3' });
   const ry = gsap.quickTo(tilt, 'rotationY', { duration: .9, ease: 'power3' });
+  const track = tl => (introTls.push(tl), tl);
   gsap.set(tilt, { transformPerspective: 1300 });
   gsap.set(env, { transformPerspective: 1500 });
   gsap.set('.flap', { transformPerspective: 900 });
   gsap.set(invite, { transformPerspective: 1500 });
   gsap.set('.inv-anim', { autoAlpha: 0, y: 14 });
+  // État de départ posé tout de suite, pour que rien ne s'affiche avant l'animation
+  gsap.set(env, { y: -innerHeight * .8, rotation: -24, rotationX: 50, scale: .8, autoAlpha: 0 });
+  gsap.set('.env-shadow', { opacity: 0, scale: .3 });
+  gsap.set(['.g-top > *', '.g-hint'], { autoAlpha: 0, y: 16 });
 
-  // L'enveloppe suit la souris / le doigt
+  // L'enveloppe et la lumière suivent la souris / le doigt (une mise à jour par image)
+  const table = $('.g-table'), sheen = $('.sheen');
+  let px = 0, py = 0, pending = false;
   gate.addEventListener('pointermove', e => {
-    const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
-    if (tiltOn) { rx(-y * 14); ry(x * 18); }
-    gate.style.setProperty('--lx', 50 + x * 30 + '%');
-    gate.style.setProperty('--ly', 50 + y * 30 + '%');
-    env.style.setProperty('--sx', 50 - x * 120 + '%');
+    px = e.clientX / innerWidth - .5; py = e.clientY / innerHeight - .5;
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      if (tiltOn) { rx(-py * 14); ry(px * 18); }
+      table.style.setProperty('--lx', 50 + px * 30 + '%');
+      table.style.setProperty('--ly', 50 + py * 30 + '%');
+      sheen.style.setProperty('--sx', 50 - px * 120 + '%');
+    });
   });
+  const stopTilt = () => { tiltOn = false; rx(0); ry(0); };
+
+  const showBack = () => { $('.face-front').style.visibility = 'hidden'; $('.face-back').style.visibility = 'visible'; };
+  const setReady = () => {
+    if (state !== 'arriving') return;
+    state = 'ready';
+    if (queuedOpen) return openEnvelope();
+    idle = gsap.to(env, { y: -10, duration: 2.4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  };
 
   // 1. La lettre tombe en virevoltant puis se retourne
   function arrive() {
-    gsap.set(env, { y: -innerHeight * .8, rotation: -24, rotationX: 50, scale: .8, autoAlpha: 0 });
-    gsap.set('.env-shadow', { opacity: 0, scale: .3 });
-    gsap.set(['.g-top > *', '.g-hint'], { autoAlpha: 0, y: 16 });
-    gsap.timeline()
+    if (state !== 'arriving') return;
+    if (reduced) {
+      showBack();
+      gsap.set(env, { y: 0, rotation: 0, rotationX: 0, scale: 1 });
+      gsap.set('.env-shadow', { opacity: 1, scale: 1 });
+      track(gsap.timeline().to([env, '.g-top > *', '.g-hint'], { autoAlpha: 1, y: 0, duration: .6 }).add(setReady));
+      return;
+    }
+    track(gsap.timeline()
       .to(env, { autoAlpha: 1, duration: .4 })
       .to(env, { y: 0, duration: 2.6, ease: 'power2.out' }, 0)
       .to(env, { rotationX: 0, scale: 1, duration: 2.6, ease: 'power3.out' }, 0)
@@ -1198,25 +1255,33 @@ if (!hasGsap) {
       .to('.env-shadow', { opacity: 1, scale: 1, duration: 2.6, ease: 'power2.out' }, 0)
       .to('.g-top > *', { autoAlpha: 1, y: 0, stagger: .2, duration: 1.2, ease: 'power3.out' }, .8)
       .to(env, { rotationY: 90, duration: .42, ease: 'power2.in' }, '+=.5')
-      .add(() => { $('.face-front').style.visibility = 'hidden'; $('.face-back').style.visibility = 'visible'; })
+      .add(showBack)
       .fromTo(env, { rotationY: -90 }, { rotationY: 0, duration: .8, ease: 'back.out(1.6)', immediateRender: false })
       .fromTo('.seal', { scale: 1.9, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .55, ease: 'power4.in' }, '-=.3')
       .to('.seal', { scaleX: 1.07, scaleY: .93, duration: .09, yoyo: true, repeat: 1, ease: 'power1.inOut' })
-      .to('.g-hint', { autoAlpha: 1, y: 0, duration: 1 })
-      .add(() => {
-        state = 'ready';
-        idle = gsap.to(env, { y: -10, duration: 2.4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
-      });
+      .add(setReady)
+      .to('.g-hint', { autoAlpha: 1, y: 0, duration: 1 }));
   }
 
   // 2. Le sceau se brise, le rabat s'ouvre, la carte glisse hors de l'enveloppe
   function openEnvelope() {
+    if (state === 'arriving') { queuedOpen = true; startMusic(); return; }
     if (state !== 'ready') return;
     state = 'opening';
-    Music.play(); soundBtn.classList.add('on');
+    startMusic(); stopTilt();
     idle && idle.kill();
+    if (reduced) {
+      gsap.set(tilt, { rotationX: 0, rotationY: 0 });
+      gsap.set(['.inv-cover'], { autoAlpha: 0 }); gsap.set('#invRing', { strokeDashoffset: 0 });
+      track(gsap.timeline()
+        .to(['.g-hint', '.g-top', '.g-skip', env], { autoAlpha: 0, duration: .4 })
+        .set(invite, { autoAlpha: 1 })
+        .to('.inv-anim', { autoAlpha: 1, y: 0, duration: .5 })
+        .add(setOpen, '<'));
+      return;
+    }
     const sr = $('#seal').getBoundingClientRect();
-    gsap.timeline()
+    track(gsap.timeline()
       .to(['.g-hint', '.g-top', '.g-skip'], { autoAlpha: 0, duration: .5 }, 0)
       .to('.sheen', { autoAlpha: 0, duration: .3 }, 0)
       .to(env, { y: 0, duration: .4, ease: 'power2.out' }, 0)
@@ -1232,54 +1297,72 @@ if (!hasGsap) {
       .to('.flap', { rotationX: 180, duration: 1.1, ease: 'power3.inOut' }, .45)
       .set('.flap', { zIndex: 1 }, 1.0)
       .add(SFX.slide, 1.4)
-      .to('.ecard', { yPercent: -72, duration: 1.4, ease: 'power3.inOut' }, 1.4)
+      .to('.ecard', { yPercent: -106, duration: 1.6, ease: 'power3.inOut' }, 1.4)
       .add(() => {
         const r = env.getBoundingClientRect();
         FX.burst(r.left + r.width / 2, r.top + r.height * .15, 'petal', 70, { angle: -Math.PI / 2, spread: 2.4, speed: 10, g: .07, size: 8, decay: .0035, colors: ['#f2d4cc', '#ead0b0', '#fbefe6', '#e3b9ae', '#e7cf9f', '#ffffff'] });
-      }, 1.95)
-      .add(revealCard, 2.8);
+      }, 2.0)
+      .add(revealCard, 3.0));
   }
+
+  const setOpen = () => {
+    if (state !== 'opening') return;
+    state = 'open';
+    $('#invBtn').focus({ preventScroll: true });
+  };
 
   // 3. Le faire-part sort, grandit et se dévoile
   function revealCard() {
+    gsap.set(tilt, { rotationX: 0, rotationY: 0 });
     const ecard = $('.ecard'), er = ecard.getBoundingClientRect(), ir = invite.getBoundingClientRect();
+    if (!ir.width || !er.width) return finishIntro();
     gsap.set(invite, {
       x: er.left + er.width / 2 - (ir.left + ir.width / 2),
       y: er.top + er.height / 2 - (ir.top + ir.height / 2),
-      scaleX: er.width / ir.width, scaleY: er.height / ir.height, autoAlpha: 1
+      scaleX: er.width / ir.width, scaleY: er.height / ir.height, autoAlpha: 0
     });
-    gsap.set(ecard, { autoAlpha: 0 });
-    gsap.timeline()
-      .to(env, { y: innerHeight * .9, rotation: -8, duration: 1.3, ease: 'power3.in' }, 0)
-      .to(env, { autoAlpha: 0, duration: .4 }, .9)
-      .to(invite, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 1.7, ease: 'power3.inOut' }, .15)
-      .to(invite, { keyframes: { rotationX: [0, -16, 0], ease: 'sine.inOut' }, duration: 1.7 }, .15)
-      .to('.inv-cover', { autoAlpha: 0, duration: .7 }, 1.1)
-      .to('#invRing', { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 1.4)
-      .to('.inv-anim', { autoAlpha: 1, y: 0, stagger: .13, duration: 1, ease: 'power3.out' }, 1.5)
+    const n = $$('.inv-anim').length;
+    track(gsap.timeline()
+      .to(invite, { autoAlpha: 1, duration: .25, ease: 'none' }, 0)
+      .set(ecard, { autoAlpha: 0 }, .25)
+      .to(env, { y: innerHeight * .9, rotation: -8, duration: 1.3, ease: 'power3.in' }, .1)
+      .to(env, { autoAlpha: 0, duration: .4 }, 1)
+      .to(invite, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 1.7, ease: 'power3.inOut' }, .25)
+      .to(invite, { keyframes: { rotationX: [0, -16, 0], ease: 'sine.inOut' }, duration: 1.7 }, .25)
+      .to('.inv-cover', { autoAlpha: 0, duration: .7 }, 1.2)
+      .to('#invRing', { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 1.5)
+      .to('.inv-anim', { autoAlpha: 1, y: 0, stagger: .13, duration: 1, ease: 'power3.out' }, 1.6)
       .add(() => {
         const r = invite.getBoundingClientRect();
         FX.burst(r.left + r.width / 2, r.top + r.height * .32, 'spark', 45, { speed: 4.5, g: -.01, size: 10, decay: .011, colors: ['#fff'] });
-      }, 1.8)
-      .add(() => { state = 'open'; });
+      }, 1.9)
+      .add(setOpen, 1.6 + .13 * (n - 1)));
   }
 
   // 4. On entre dans le site
   function enterSite() {
     if (state !== 'open') return;
-    state = 'entering'; tiltOn = false; rx(0); ry(0);
-    SFX.whoosh();
-    gsap.timeline({ onComplete: finishIntro })
+    state = 'entering'; stopTilt();
+    SFX.unlock(); SFX.whoosh();
+    if (reduced) { track(gsap.timeline({ onComplete: finishIntro }).to(gate, { autoAlpha: 0, duration: .5 })); return; }
+    track(gsap.timeline({ onComplete: finishIntro })
       .to(invite, { scale: 1.05, duration: .35, ease: 'power2.out' })
       .to(invite, { scale: 3.5, autoAlpha: 0, duration: 1.2, ease: 'power3.in' })
       .to('.g-flash', { opacity: 1, duration: .7, ease: 'power2.in' }, '-=.8')
-      .to(gate, { autoAlpha: 0, duration: 1, ease: 'power2.out' });
+      .to(gate, { autoAlpha: 0, duration: 1, ease: 'power2.out' }));
+  }
+
+  function skipIntro() {
+    if (state === 'entering' || state === 'done' || state === 'skipping') return;
+    state = 'skipping';
+    introTls.forEach(t => t.kill()); idle && idle.kill();
+    gsap.to(gate, { autoAlpha: 0, duration: .6, onComplete: () => { state = 'skipped'; finishIntro(); } });
   }
 
   env.addEventListener('click', openEnvelope);
   env.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), openEnvelope()));
   $('#invBtn').addEventListener('click', enterSite);
-  $('#gSkip').addEventListener('click', () => gsap.to(gate, { autoAlpha: 0, duration: .8, onComplete: finishIntro }));
+  $('#gSkip').addEventListener('click', skipIntro);
 
   Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]).then(arrive);
 }
@@ -1302,34 +1385,37 @@ if (hasGsap) {
   // Hero parallax out
   gsap.to('#heroContent', { yPercent: 35, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
   gsap.to('#slides', { yPercent: 20, scale: 1.1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  if (finePointer) addEventListener('mousemove', e => gsap.to('#names', { x: (e.clientX / innerWidth - .5) * -30, y: (e.clientY / innerHeight - .5) * -18, duration: 1.2, ease: 'power2.out' }));
+  if (finePointer) {
+    const nx = gsap.quickTo('#names', 'x', { duration: 1.2, ease: 'power2.out' }), ny = gsap.quickTo('#names', 'y', { duration: 1.2, ease: 'power2.out' });
+    addEventListener('mousemove', e => { nx((e.clientX / innerWidth - .5) * -30); ny((e.clientY / innerHeight - .5) * -18); });
+  }
 
   // Manifesto: words light up
   gsap.to('#manifesto .w', { opacity: 1, stagger: .1, ease: 'none', scrollTrigger: { trigger: '#manifesto', start: 'top 80%', end: 'bottom 45%', scrub: true } });
 
-  // Headings
-  $$('.split .line>span').forEach(s => gsap.to(s, { y: 0, duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: s, start: 'top 90%' } }));
-  $$('.head .script, .head p').forEach(s => gsap.from(s, { opacity: 0, y: 30, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 90%' } }));
-
   // Story horizontal scroll
   const track = $('#track');
-  const dist = () => track.scrollWidth - innerWidth;
+  const dist = () => track.scrollWidth - document.documentElement.clientWidth;
   const hz = gsap.to(track, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.story', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 } });
   $$('.chapter').forEach(ch => {
     gsap.fromTo(ch.querySelector('img'), { xPercent: -8 }, { xPercent: 8, ease: 'none', scrollTrigger: { trigger: ch, containerAnimation: hz, start: 'left right', end: 'right left', scrub: true } });
     gsap.from(ch.querySelector('.year'), { yPercent: 60, opacity: 0, ease: 'power3.out', scrollTrigger: { trigger: ch, containerAnimation: hz, start: 'left 85%', end: 'left 40%', scrub: true } });
-    gsap.from(ch.querySelector('.ph'), { clipPath: 'inset(0 0 100% 0)', ease: 'power2.out', scrollTrigger: { trigger: ch, containerAnimation: hz, start: 'left 95%', end: 'left 55%', scrub: true } });
+    gsap.fromTo(ch.querySelector('.ph'), { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', ease: 'power2.out', scrollTrigger: { trigger: ch, containerAnimation: hz, start: 'left 95%', end: 'left 55%', scrub: true } });
   });
 
   // Zoom reveal
   gsap.timeline({ scrollTrigger: { trigger: '#zoom', start: 'top top', end: '+=160%', pin: true, scrub: 1 } })
-    .to('.zoom-img', { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', ease: 'power2.inOut', duration: 1 })
+    .fromTo('.zoom-img', { clipPath: 'inset(22% 30% 22% 30% round 300px 300px 4px 4px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px 0px 0px 0px)', ease: 'power2.inOut', duration: 1 })
     .to('.zoom-img img', { scale: 1, ease: 'power2.inOut', duration: 1 }, 0)
     .to('.zoom-side.l', { xPercent: -150, opacity: 0, duration: .6 }, 0)
     .to('.zoom-side.r', { xPercent: 150, opacity: 0, duration: .6 }, 0)
-    .to('.zoom-img img', { filter: 'brightness(.6)', duration: .4 }, .6)
+    .fromTo('.zoom-img img', { filter: 'brightness(1)' }, { filter: 'brightness(0.6)', duration: .4 }, .6)
     .fromTo('.zoom-quote', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .5 }, .7)
     .to({}, { duration: .4 });
+
+  // Headings
+  $$('.split .line>span').forEach(s => gsap.to(s, { y: 0, duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: s, start: 'top 90%' } }));
+  $$('.head .script, .head p').forEach(s => gsap.from(s, { opacity: 0, y: 30, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 90%' } }));
 
   // Program line + items
   const path = $('#progPath');
@@ -1345,7 +1431,7 @@ if (hasGsap) {
   // Venue
   gsap.fromTo('.venue-ph img', { yPercent: -15 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.venue-ph', start: 'top bottom', end: 'bottom top', scrub: true } });
   gsap.from('.vrow', { opacity: 0, x: 40, stagger: .15, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.vinfo', start: 'top 80%' } });
-  gsap.from('.venue-ph', { clipPath: 'inset(100% 0 0 0)', duration: 1.6, ease: 'expo.inOut', scrollTrigger: { trigger: '.venue-ph', start: 'top 80%' } });
+  gsap.fromTo('.venue-ph', { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut', scrollTrigger: { trigger: '.venue-ph', start: 'top 80%' } });
 
   // Gift
   ScrollTrigger.create({ trigger: '#ring', start: 'top 75%', once: true, onEnter: animateGift });
@@ -1425,8 +1511,10 @@ function confetti() {
 
 /* ---------- RSVP ---------- */
 const form = $('#rsvpForm'), msg = $('#formMsg'), more = $('#more');
+more.inert = true;
 $$('input[name="presence"]').forEach(r => r.addEventListener('change', () => {
   more.classList.toggle('show', form.presence.value === 'Oui');
+  more.inert = form.presence.value !== 'Oui';
   setTimeout(() => window.ScrollTrigger && ScrollTrigger.refresh(), 950);
 }));
 form.addEventListener('submit', async e => {
@@ -1444,8 +1532,14 @@ form.addEventListener('submit', async e => {
     if (CONFIG.formEndpoint) {
       const res = await fetch(CONFIG.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
+    } else if (CONFIG.rsvpEmail) {
+      const body = Object.entries(data).filter(([, v]) => v).map(([k, v]) => `${k} : ${v}`).join('\n');
+      location.href = `mailto:${CONFIG.rsvpEmail}?subject=${encodeURIComponent('RSVP mariage — ' + data.prenom + ' ' + data.nom)}&body=${encodeURIComponent(body)}`;
     } else {
-      try { const all = JSON.parse(localStorage.getItem('rsvp') || '[]'); all.push(data); localStorage.setItem('rsvp', JSON.stringify(all)); } catch {}
+      console.warn('RSVP : aucun formEndpoint ni rsvpEmail configuré dans CONFIG, la réponse ne peut pas être envoyée.');
+      msg.textContent = 'Le formulaire n’est pas encore relié : merci de répondre directement aux mariés.';
+      btn.disabled = false; btn.textContent = 'Envoyer ma réponse';
+      return;
     }
     $('#thanksText').textContent = data.presence === 'Oui'
       ? `${data.prenom}, notre cœur déborde : nous avons hâte de vivre ce jour avec vous !`
