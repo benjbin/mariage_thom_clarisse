@@ -53,44 +53,105 @@ img{display:block;max-width:100%}
 .progress-line{position:fixed;top:0;left:0;height:2px;width:100%;background:linear-gradient(90deg,var(--gold-light),var(--gold));transform-origin:left;transform:scaleX(0);z-index:200}
 
 /* =========== ENVELOPE INTRO =========== */
-#gate{
-  position:fixed;inset:0;z-index:1000;display:grid;place-items:center;overflow:hidden;
-  background:radial-gradient(ellipse at 50% 40%,#2e2520 0%,#120e0c 70%);
+:root{
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .18 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --liner:#56634f;
 }
+#gate{position:fixed;inset:0;z-index:1000;overflow:hidden;background:#0d0a08;color:var(--ivory)}
+.g-table{position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at var(--lx,50%) var(--ly,50%),rgba(160,115,70,.45),transparent 70%),radial-gradient(ellipse 120% 80% at 50% 110%,#2d211a 0%,#0d0a08 65%)}
+.g-noise{position:absolute;inset:0;opacity:.5;pointer-events:none;background-image:var(--grain);mix-blend-mode:screen}
+.g-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.82) 100%)}
 #gate .bokeh{position:absolute;inset:0;pointer-events:none}
-#gate .bokeh i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(231,207,159,.55),rgba(231,207,159,0) 70%);filter:blur(2px);animation:bok 9s ease-in-out infinite alternate}
-@keyframes bok{to{transform:translate(30px,-40px) scale(1.25);opacity:.4}}
-.gate-inner{text-align:center;position:relative;z-index:2;padding:0 16px}
-.gate-top{color:var(--gold-light);margin-bottom:46px;opacity:0;animation:fadeUp 1.4s .3s var(--ease) forwards}
-.gate-top .script{display:block;font-size:clamp(2.6rem,7vw,3.6rem);line-height:1;margin-top:10px;color:#fff}
-.env{width:min(430px,84vw);aspect-ratio:1.55;position:relative;margin:0 auto;perspective:1400px;cursor:pointer;opacity:0;animation:fadeUp 1.6s .7s var(--ease) forwards}
-.env:hover .seal{transform:translate(-50%,-50%) scale(1.06)}
-.env-back{position:absolute;inset:0;background:linear-gradient(160deg,#e9dcc7,#d9c7ab);border-radius:6px;box-shadow:0 40px 90px -20px rgba(0,0,0,.8)}
-.env-card{
-  position:absolute;left:7%;right:7%;top:8%;height:86%;z-index:1;background:var(--ivory);border-radius:4px;
-  display:grid;place-items:center;text-align:center;box-shadow:0 0 0 1px rgba(193,154,91,.25) inset
-}
-.env-card::before{content:"";position:absolute;inset:8px;border:1px solid rgba(193,154,91,.4)}
-.env-card .script{font-size:clamp(1.8rem,5vw,2.4rem);color:var(--ink);line-height:1.1}
-.env-card small{display:block;font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-top:8px}
-.env-front{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,#efe4d3,#e4d4bc);clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);border-radius:6px}
-.env-flap{
-  position:absolute;left:0;right:0;top:0;height:60%;z-index:3;transform-origin:top center;
-  background:linear-gradient(180deg,#e7d9c3,#d6c2a4);clip-path:polygon(0 0,100% 0,50% 100%);
-  filter:drop-shadow(0 6px 8px rgba(0,0,0,.15))
-}
-.seal{
-  position:absolute;left:50%;top:58%;z-index:4;width:78px;height:78px;transform:translate(-50%,-50%);transition:transform .5s var(--ease);
-  border-radius:50%;display:grid;place-items:center;
-  background:radial-gradient(circle at 35% 30%,#b44a4a,#7a2424 60%,#5a1717);
-  box-shadow:0 6px 18px rgba(0,0,0,.45),inset 0 -3px 6px rgba(0,0,0,.35),inset 0 2px 4px rgba(255,255,255,.2)
-}
-.seal::before{content:"";position:absolute;inset:8px;border-radius:50%;border:1px dashed rgba(255,220,190,.35)}
-.seal span{font-family:var(--script);font-size:1.7rem;color:#f2d6b3;text-shadow:0 1px 1px rgba(0,0,0,.4)}
-.gate-hint{margin-top:44px;color:rgba(255,255,255,.7);opacity:0;animation:fadeUp 1.4s 1.3s var(--ease) forwards}
-.gate-hint .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:12px;vertical-align:middle;box-shadow:0 0 0 0 rgba(193,154,91,.6);animation:pulse 2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 14px rgba(193,154,91,0)}100%{box-shadow:0 0 0 0 rgba(193,154,91,0)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+#gate .bokeh i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(231,207,159,.5),rgba(231,207,159,0) 70%);filter:blur(3px);animation:bok 9s ease-in-out infinite alternate}
+@keyframes bok{to{transform:translate(30px,-40px) scale(1.25);opacity:.35}}
+#gateFx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
+.g-top{position:absolute;top:max(7vh,44px);left:0;right:0;text-align:center;z-index:5;padding:0 16px;pointer-events:none}
+.g-top>*{display:block}
+.g-top .eyebrow{color:var(--gold-light)}
+.g-top .script{font-size:clamp(2.4rem,6.5vw,3.6rem);line-height:1.1;margin-top:6px;color:#fff}
+.g-hint{position:absolute;bottom:max(8vh,44px);left:0;right:0;text-align:center;z-index:5;color:rgba(255,255,255,.78);pointer-events:none}
+.g-hint .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:12px;vertical-align:middle;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(193,154,91,.6)}70%{box-shadow:0 0 0 14px rgba(193,154,91,0)}100%{box-shadow:0 0 0 0 rgba(193,154,91,0)}}
+.g-skip{position:absolute;top:20px;right:20px;z-index:7;background:none;border:0;color:rgba(255,255,255,.45);font:400 .6rem var(--sans);letter-spacing:.3em;text-transform:uppercase;cursor:pointer;padding:10px}
+.g-skip:hover{color:var(--gold-light)}
+.g-flash{position:absolute;inset:0;z-index:8;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,#fffaf0 0%,#f5e6c8 45%,#e9d3a8 100%)}
+
+.stage{position:absolute;inset:0;display:grid;place-items:center;z-index:3}
+.tilt{display:grid;place-items:center}
+.tilt>*{grid-area:1/1}
+
+/* Envelope */
+.env{position:relative;width:min(460px,82vw);aspect-ratio:1.6;cursor:pointer;outline:none}
+.env-shadow{position:absolute;left:4%;right:4%;bottom:-18%;height:28%;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.75),transparent 70%);filter:blur(14px)}
+.face{position:absolute;inset:0;border-radius:5px}
+.face-front{z-index:2;overflow:hidden;background:var(--grain),linear-gradient(155deg,#f6eee2 0%,#ecdfcb 55%,#e2d1b7 100%);box-shadow:0 30px 60px -18px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.45)}
+.face-front::before{content:"";position:absolute;inset:7px;border:1px solid rgba(193,154,91,.4);border-radius:3px;pointer-events:none}
+.ff-stamp{position:absolute;top:10%;right:6%;width:15%;aspect-ratio:.8;background:#fbf6ee;border:4px dotted #fbf6ee;box-shadow:0 2px 4px rgba(0,0,0,.18);transform:rotate(3deg)}
+.ff-art{position:absolute;inset:0;background:linear-gradient(160deg,#6b7a62,#4c5946);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ff-art svg{width:62%}
+.ff-art span{font-size:clamp(.32rem,1vw,.42rem);letter-spacing:.15em;color:#e7cf9f;text-transform:uppercase}
+.ff-post{position:absolute;top:9%;right:13%;width:36%;transform:rotate(-9deg);opacity:.9}
+.ff-addr{position:absolute;left:10%;top:44%;width:58%}
+.ff-addr .eyebrow{display:block;color:var(--gold);font-size:.55rem}
+.ff-name{display:block;font-size:clamp(1.5rem,5.2vw,2.4rem);line-height:1.15;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ff-addr i{display:block;height:1px;background:rgba(37,31,26,.18);margin-top:12px}
+.ff-addr i+i{width:70%}
+.ff-from{position:absolute;left:10%;bottom:10%;font-size:clamp(.45rem,1.3vw,.56rem);letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+
+.face-back{z-index:1;visibility:hidden}
+.liner{background-color:var(--liner);background-image:radial-gradient(circle,rgba(231,207,159,.6) 1.1px,transparent 1.6px),repeating-linear-gradient(45deg,rgba(231,207,159,.16) 0 1px,transparent 1px 12px),repeating-linear-gradient(-45deg,rgba(231,207,159,.16) 0 1px,transparent 1px 12px);background-size:16.97px 16.97px,auto,auto}
+.fb-inner{position:absolute;inset:0;border-radius:5px;z-index:1;box-shadow:inset 0 10px 30px rgba(0,0,0,.35)}
+.ecard{position:absolute;left:6%;right:6%;top:5%;height:88%;z-index:2;border-radius:3px;background:var(--grain),#fbf7ef;display:grid;place-items:center;text-align:center;color:var(--ink);box-shadow:0 -4px 14px rgba(0,0,0,.18)}
+.ecard::before,.inv-cover::before{content:"";position:absolute;inset:7px;border:1px solid rgba(193,154,91,.45)}
+.ecard .script,.inv-cover .script{font-size:clamp(1.6rem,4.6vw,2.2rem);line-height:1.1;display:block}
+.ecard small,.inv-cover small{display:block;font-size:.55rem;letter-spacing:.4em;color:var(--gold);margin-top:6px}
+.pocket{position:absolute;inset:0;z-index:3;border-radius:5px;background:var(--grain),linear-gradient(180deg,#efe4d3,#e1cfb4);clip-path:polygon(0 0,50% 54%,100% 0,100% 100%,0 100%)}
+.pocket::before,.pocket::after{content:"";position:absolute;inset:0}
+.pocket::before{background:linear-gradient(90deg,rgba(80,55,30,.12),transparent 45%),linear-gradient(270deg,rgba(80,55,30,.12),transparent 45%);clip-path:polygon(0 0,50% 54%,0 100%,100% 100%,50% 54%,100% 0,100% 100%,0 100%)}
+.pocket::after{background:linear-gradient(0deg,rgba(255,255,255,.28),transparent 60%);clip-path:polygon(0 100%,50% 54%,100% 100%)}
+.flapshade{position:absolute;left:0;right:0;top:0;height:65%;z-index:4;background:rgba(40,25,10,.22);clip-path:polygon(0 0,100% 0,50% 100%);filter:blur(4px)}
+.flap{position:absolute;left:0;right:0;top:0;height:62%;z-index:5;transform-origin:50% 0;transform-style:preserve-3d}
+.flap-out,.flap-in{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:5px 5px 0 0}
+.flap-out{background:var(--grain),linear-gradient(180deg,#ebdec9 0%,#dccaae 100%)}
+.flap-in{transform:rotateX(180deg)}
+.seal{position:absolute;left:50%;top:62%;width:clamp(66px,19%,90px);aspect-ratio:1;z-index:6;margin-left:calc(clamp(66px,19%,90px) / -2);margin-top:calc(clamp(66px,19%,90px) / -2);cursor:pointer}
+.seal .half{position:absolute;inset:0}
+.seal .l{clip-path:polygon(-10% -10%,53% -10%,46% 28%,56% 50%,44% 74%,51% 110%,-10% 110%)}
+.seal .r{clip-path:polygon(53% -10%,110% -10%,110% 110%,51% 110%,44% 74%,56% 50%,46% 28%)}
+.wax{position:absolute;inset:0;border-radius:47% 53% 50% 50%/52% 46% 54% 48%;background:radial-gradient(circle at 34% 28%,#c8574f,#922c2b 52%,#5c1515 100%);box-shadow:0 8px 18px rgba(0,0,0,.5),inset 0 -5px 9px rgba(0,0,0,.42),inset 0 3px 5px rgba(255,255,255,.24);display:grid;place-items:center}
+.wax::before{content:"";position:absolute;inset:15%;border-radius:50%;box-shadow:inset 0 2px 3px rgba(0,0,0,.5),0 1px 1px rgba(255,255,255,.2)}
+.wax::after{content:"";position:absolute;inset:24%;border-radius:50%;border:1px dashed rgba(240,207,168,.35)}
+.wax span{position:relative;font-family:var(--script);font-size:clamp(1.25rem,4vw,1.8rem);color:#f2d3ac;text-shadow:0 -1px 0 rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.18)}
+.sheen{position:absolute;inset:0;z-index:7;pointer-events:none;border-radius:5px;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.35) 48%,transparent 62%);background-size:260% 100%;background-position:var(--sx,50%) 0;mix-blend-mode:soft-light}
+
+/* Invitation card */
+.invite{position:relative;visibility:hidden;width:min(400px,86vw,calc(80svh * .714));aspect-ratio:5/7;container-type:inline-size;border-radius:4px;background:var(--grain),linear-gradient(170deg,#fdfaf4,#f6efe3);color:var(--ink);box-shadow:0 60px 120px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.6) inset;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5cqw 7cqw}
+.invite::before{content:"";position:absolute;inset:3.4cqw;border:1px solid rgba(193,154,91,.6);pointer-events:none}
+.invite::after{content:"";position:absolute;inset:4.8cqw;border:1px solid rgba(193,154,91,.25);pointer-events:none}
+.inv-cover{position:absolute;inset:0;z-index:3;background:var(--grain),#fbf7ef;display:grid;place-items:center;border-radius:4px}
+.inv-cover .script{font-size:11cqw}
+.inv-cover small{font-size:2.6cqw}
+.inv-mono{width:17cqw;height:17cqw;overflow:visible}
+.inv-mono circle{fill:none;stroke:var(--gold);stroke-width:1}
+.inv-mono text{font-family:var(--script);font-size:15px;fill:var(--gold)}
+.inv-guest{font-size:8.5cqw;color:var(--gold);line-height:1.1;margin-top:2cqw}
+.inv-guest:empty{display:none}
+.inv-small{font-size:3.2cqw;letter-spacing:.38em;text-transform:uppercase;color:var(--muted);margin:2.5cqw 0 1cqw}
+.inv-names{font-family:var(--script);font-weight:400;font-size:20cqw;line-height:1.02;padding:0 2cqw}
+.inv-names>span{display:block}
+.inv-names em{font-style:normal;font-size:.6em}
+.foil{background:linear-gradient(110deg,#8a6230 0%,#b98d4c 25%,#ecd39a 40%,#a87d40 55%,#75521f 75%,#b98d4c 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 5s linear infinite}
+@keyframes foil{from{background-position:100% 0}to{background-position:-150% 0}}
+.inv-text{font-family:var(--serif);font-style:italic;font-size:6.4cqw;line-height:1.35;color:#4b4037;margin-top:2.5cqw}
+.inv-sep{display:flex;align-items:center;gap:3cqw;color:var(--gold);font-size:3.8cqw;margin:3.5cqw 0}
+.inv-sep::before,.inv-sep::after{content:"";width:13cqw;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.inv-sep::after{transform:scaleX(-1)}
+.inv-date{font-family:var(--serif);font-size:7.8cqw;letter-spacing:.06em;line-height:1.2}
+.inv-time{font-size:3.3cqw;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-top:1cqw}
+.inv-place{font-family:var(--serif);font-size:6.4cqw;margin-top:3cqw;line-height:1.3}
+.inv-place small{display:block;font-family:var(--sans);font-size:3.3cqw;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-top:.6cqw}
+.invite .inv-btn{margin-top:5cqw;font-size:3.5cqw;padding:4.6cqw 8cqw;letter-spacing:.28em}
+@media (prefers-reduced-motion:reduce){.foil{animation:none}}
 
 /* =========== NAV =========== */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:26px 5vw;transition:transform .7s var(--ease),background .5s,padding .5s;color:#fff}
@@ -399,21 +460,64 @@ footer p.small{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;op
 
 <!-- ================= ENVELOPE ================= -->
 <div id="gate" role="dialog" aria-label="Invitation">
+  <div class="g-table"></div>
   <div class="bokeh" id="bokeh"></div>
-  <div class="gate-inner">
-    <div class="gate-top">
-      <span class="eyebrow">Vous avez reçu une invitation</span>
-      <span class="script" data-cfg="guestLine">Une lettre pour vous</span>
+  <div class="g-noise"></div>
+  <div class="g-vig"></div>
+  <div class="g-top"><span class="eyebrow">Vous avez reçu une invitation</span><span class="script">Une lettre pour vous</span></div>
+
+  <div class="stage">
+    <div class="tilt" id="tilt">
+      <div class="env" id="env" tabindex="0" role="button" aria-label="Ouvrir l'enveloppe">
+        <div class="env-shadow"></div>
+
+        <!-- Recto : adresse -->
+        <div class="face face-front">
+          <div class="ff-stamp"><div class="ff-art">
+            <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 34C15 27 23 17 32 6" stroke="#e7cf9f" stroke-width="1.2" fill="none"/><g fill="#e7cf9f"><ellipse cx="13" cy="27" rx="4.5" ry="1.6" transform="rotate(-70 13 27)"/><ellipse cx="17" cy="25" rx="4.5" ry="1.6" transform="rotate(10 17 25)"/><ellipse cx="19" cy="19" rx="4.5" ry="1.6" transform="rotate(-70 19 19)"/><ellipse cx="24" cy="17" rx="4.5" ry="1.6" transform="rotate(10 24 17)"/><ellipse cx="26" cy="11" rx="4.5" ry="1.6" transform="rotate(-70 26 11)"/><circle cx="30" cy="12" r="1.8"/></g></svg>
+            <span>Amour · 2027</span>
+          </div></div>
+          <svg class="ff-post" viewBox="0 0 140 70" aria-hidden="true"><g fill="none" stroke="rgba(70,60,95,.55)" stroke-width="1.1"><circle cx="35" cy="35" r="26"/><circle cx="35" cy="35" r="20"/><path d="M66 23c8-5 16 5 24 0s16 5 24 0 16 5 24 0M66 35c8-5 16 5 24 0s16 5 24 0 16 5 24 0M66 47c8-5 16 5 24 0s16 5 24 0 16 5 24 0"/></g><g fill="rgba(70,60,95,.65)" font-family="Jost,sans-serif" text-anchor="middle" letter-spacing="1"><text x="35" y="33" font-size="6.5">PROVENCE</text><text x="35" y="42" font-size="6.5">12·06·27</text></g></svg>
+          <div class="ff-addr"><span class="eyebrow">À l'attention de</span><span class="ff-name script" id="ffName">Nos invités chéris</span><i></i><i></i></div>
+          <span class="ff-from">De la part de <span data-cfg="name1">Thom</span> &amp; <span data-cfg="name2">Clarisse</span></span>
+        </div>
+
+        <!-- Verso : rabat + sceau -->
+        <div class="face face-back">
+          <div class="fb-inner liner"></div>
+          <div class="ecard"><div><span class="script"><span data-cfg="name1">Thom</span> &amp; <span data-cfg="name2">Clarisse</span></span><small data-cfg="dateLabel">12 · 06 · 2027</small></div></div>
+          <div class="pocket"></div>
+          <div class="flapshade"></div>
+          <div class="flap"><div class="flap-out"></div><div class="flap-in liner"></div></div>
+          <div class="seal" id="seal">
+            <div class="half l"><div class="wax"><span data-cfg="initials">T&amp;C</span></div></div>
+            <div class="half r"><div class="wax"><span data-cfg="initials">T&amp;C</span></div></div>
+          </div>
+        </div>
+        <div class="sheen"></div>
+      </div>
+
+      <!-- Le faire-part -->
+      <div class="invite" id="invite">
+        <div class="inv-cover"><div><span class="script"><span data-cfg="name1">Thom</span> &amp; <span data-cfg="name2">Clarisse</span></span><small data-cfg="dateLabel">12 · 06 · 2027</small></div></div>
+        <svg class="inv-mono inv-anim" viewBox="0 0 60 60" aria-hidden="true"><circle id="invRing" cx="30" cy="30" r="28" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><text x="30" y="36" text-anchor="middle" data-cfg="initials">T&amp;C</text></svg>
+        <p class="inv-guest script inv-anim" id="invGuest"></p>
+        <p class="inv-small inv-anim">Ensemble avec leurs familles</p>
+        <h2 class="inv-names foil inv-anim"><span data-cfg="name1">Thom</span><span><em>&amp;</em> <span data-cfg="name2">Clarisse</span></span></h2>
+        <p class="inv-text inv-anim">ont la joie de vous convier<br>à la célébration de leur mariage</p>
+        <div class="inv-sep inv-anim">✦</div>
+        <p class="inv-date inv-anim" data-cfg="dateLong">Samedi 12 juin 2027</p>
+        <p class="inv-time inv-anim" data-cfg="timeLong">à quatorze heures trente</p>
+        <p class="inv-place inv-anim"><span data-cfg="venue">Domaine des Oliviers</span><small data-cfg="city">Provence · France</small></p>
+        <button class="btn inv-btn inv-anim" id="invBtn" type="button">Entrer dans notre histoire</button>
+      </div>
     </div>
-    <div class="env" id="env" tabindex="0" role="button" aria-label="Ouvrir l'invitation">
-      <div class="env-back"></div>
-      <div class="env-card"><div><span class="script"><span data-cfg="name1">Thom</span> &amp; <span data-cfg="name2">Clarisse</span></span><small data-cfg="dateLabel">12 · 06 · 2027</small></div></div>
-      <div class="env-front"></div>
-      <div class="env-flap"></div>
-      <div class="seal"><span data-cfg="initials">T&amp;C</span></div>
-    </div>
-    <p class="gate-hint eyebrow"><span class="pulse"></span>Touchez le sceau pour ouvrir</p>
   </div>
+
+  <p class="g-hint eyebrow"><span class="pulse"></span><span id="hintText">Brisez le sceau pour ouvrir</span></p>
+  <button class="g-skip" id="gSkip" type="button">Passer l'intro</button>
+  <canvas id="gateFx" aria-hidden="true"></canvas>
+  <div class="g-flash"></div>
 </div>
 
 <!-- ================= NAV ================= -->
@@ -694,6 +798,7 @@ const CONFIG = {
   dateLabel: "12 · 06 · 2027",
   dateShort: "12 juin",
   dateLong: "Samedi 12 juin 2027",
+  timeLong: "à quatorze heures trente",
   city: "Provence · France",
   venue: "Domaine des Oliviers",
   address: "Route des Vignes, 13100 Aix-en-Provence",
@@ -957,33 +1062,227 @@ addEventListener('scroll', () => {
   $('.progress-line').style.transform = `scaleX(${y / (document.documentElement.scrollHeight - innerHeight)})`;
 }, { passive: true });
 
-/* ---------- Envelope opening ---------- */
-const env = $('#env'), gate = $('#gate');
-function openInvite() {
-  if (document.body.dataset.opened) return;
-  document.body.dataset.opened = '1';
-  Music.play(); soundBtn.classList.add('on');
-  const done = () => {
-    gate.remove(); document.body.classList.remove('locked');
-    nav.classList.remove('hide'); soundBtn.classList.add('ready');
-    lenis && lenis.start();
-    heroIntro();
+/* ---------- Envelope intro ---------- */
+const gate = $('#gate'), env = $('#env'), tilt = $('#tilt'), invite = $('#invite');
+
+// Invitation personnalisée : ...index.html?invite=Marie%20et%20Paul
+const guest = new URLSearchParams(location.search).get('invite');
+$('#ffName').textContent = guest || 'Nos invités chéris';
+$('#invGuest').textContent = guest ? `${guest},` : '';
+if (guest) $('.inv-small').remove();
+
+// Petits bruitages (cire qui se brise, papier qui glisse)
+const SFX = (() => {
+  let ctx;
+  const get = () => ctx || (ctx = new (window.AudioContext || window.webkitAudioContext)());
+  const noise = d => {
+    const c = get(), b = c.createBuffer(1, c.sampleRate * d, c.sampleRate), data = b.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    const s = c.createBufferSource(); s.buffer = b; return s;
   };
-  if (!hasGsap) { gate.style.transition = 'opacity 1s'; gate.style.opacity = 0; setTimeout(done, 1000); return; }
-  gsap.timeline({ onComplete: done })
-    .to('.gate-hint,.gate-top', { opacity: 0, y: -20, duration: .6 })
-    .to('.seal', { scale: 1.25, duration: .25, ease: 'power2.out' }, 0)
-    .to('.seal', { scale: 0, opacity: 0, rotate: 40, duration: .45, ease: 'back.in(2)' })
-    .to('.env-flap', { rotateX: 180, duration: .9, ease: 'power3.inOut' }, '-=.1')
-    .set('.env-flap', { zIndex: 0 }, '-=.45')
-    .to('.env-card', { y: '-62%', duration: 1.1, ease: 'power3.inOut' }, '-=.2')
-    .to('.env', { scale: 1.08, duration: 1.4, ease: 'power2.inOut' }, '-=.6')
-    .to('.env-back,.env-front,.env-flap', { opacity: 0, y: 80, duration: .8, ease: 'power2.in' }, '-=.4')
-    .to('.env-card', { scale: 6, opacity: 0, duration: 1.2, ease: 'power3.in' }, '-=.3')
-    .to(gate, { opacity: 0, duration: .9, ease: 'power1.inOut' }, '-=.7');
+  const paper = (d, f1, f2, v) => {
+    const c = get(), t = c.currentTime, n = noise(d), bp = c.createBiquadFilter(), g = c.createGain();
+    bp.type = 'bandpass'; bp.Q.value = .6;
+    bp.frequency.setValueAtTime(f1, t); bp.frequency.exponentialRampToValueAtTime(f2, t + d);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + d * .3); g.gain.linearRampToValueAtTime(0, t + d);
+    n.connect(bp).connect(g).connect(c.destination); n.start(t);
+  };
+  return {
+    crack() {
+      const c = get(), t = c.currentTime;
+      const n = noise(.25), bp = c.createBiquadFilter(), g = c.createGain();
+      bp.type = 'bandpass'; bp.frequency.value = 1900; bp.Q.value = .9;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.9, t + .004); g.gain.exponentialRampToValueAtTime(.001, t + .18);
+      n.connect(bp).connect(g).connect(c.destination); n.start(t);
+      const o = c.createOscillator(), og = c.createGain();
+      o.frequency.setValueAtTime(170, t); o.frequency.exponentialRampToValueAtTime(55, t + .16);
+      og.gain.setValueAtTime(.5, t); og.gain.exponentialRampToValueAtTime(.001, t + .2);
+      o.connect(og).connect(c.destination); o.start(t); o.stop(t + .22);
+    },
+    flap: () => paper(.7, 600, 2400, .14),
+    slide: () => paper(1.2, 800, 3600, .22),
+    whoosh: () => paper(1.4, 300, 5000, .16)
+  };
+})();
+
+// Particules : éclats de cire, pétales, étincelles
+const FX = (() => {
+  const c = $('#gateFx'), ctx = c.getContext('2d'), dpr = Math.min(devicePixelRatio, 2);
+  let ps = [], running = false;
+  const size = () => { c.width = innerWidth * dpr; c.height = innerHeight * dpr; };
+  size(); addEventListener('resize', size);
+  function loop() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    ps = ps.filter(p => p.life > 0);
+    for (const p of ps) {
+      p.vy += p.g; p.vx *= .985; p.vy *= .985; p.t += p.fl;
+      p.x += p.vx + Math.sin(p.t) * p.sw; p.y += p.vy; p.rot += p.vr; p.life -= p.decay;
+      ctx.save(); ctx.globalAlpha = Math.min(1, p.life); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      if (p.kind === 'petal') {
+        ctx.scale(1, .35 + Math.abs(Math.sin(p.t * 1.6)) * .65);
+        ctx.fillStyle = p.c; ctx.beginPath();
+        ctx.moveTo(0, -p.s); ctx.bezierCurveTo(p.s * .9, -p.s * .5, p.s * .6, p.s * .7, 0, p.s);
+        ctx.bezierCurveTo(-p.s * .6, p.s * .7, -p.s * .9, -p.s * .5, 0, -p.s); ctx.fill();
+      } else if (p.kind === 'spark') {
+        ctx.globalCompositeOperation = 'lighter';
+        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, p.s);
+        g.addColorStop(0, 'rgba(255,240,200,1)'); g.addColorStop(.3, 'rgba(240,200,130,.6)'); g.addColorStop(1, 'rgba(240,200,130,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, p.s, 0, 6.283); ctx.fill();
+      } else {
+        ctx.fillStyle = p.c; ctx.beginPath();
+        ctx.moveTo(-p.s, 0); ctx.lineTo(0, -p.s * .7); ctx.lineTo(p.s * .8, p.s * .4); ctx.closePath(); ctx.fill();
+      }
+      ctx.restore();
+    }
+    if (ps.length) requestAnimationFrame(loop); else running = false;
+  }
+  function burst(x, y, kind, n, o) {
+    for (let i = 0; i < n; i++) {
+      const a = (o.angle ?? 0) + (Math.random() - .5) * (o.spread ?? 6.283), sp = o.speed * (.35 + Math.random()) * dpr;
+      ps.push({
+        kind, x: x * dpr, y: y * dpr, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, g: o.g * dpr,
+        s: o.size * (.5 + Math.random()) * dpr, rot: Math.random() * 6.28, vr: (Math.random() - .5) * .2,
+        t: Math.random() * 6.28, fl: .04 + Math.random() * .05, sw: kind === 'petal' ? 1.4 * dpr : 0,
+        life: 1 + Math.random() * .6, decay: o.decay, c: o.colors[(Math.random() * o.colors.length) | 0]
+      });
+    }
+    if (!running) { running = true; loop(); }
+  }
+  return { burst };
+})();
+
+let state = 'arriving', idle = null, tiltOn = true;
+
+function finishIntro() {
+  if (state === 'done') return;
+  state = 'done';
+  gate.remove(); document.body.classList.remove('locked');
+  nav.classList.remove('hide'); soundBtn.classList.add('ready');
+  document.body.dataset.opened = '1';
+  lenis && lenis.start();
+  heroIntro();
 }
-env.addEventListener('click', openInvite);
-env.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), openInvite()));
+
+if (!hasGsap) {
+  $('.face-front').style.visibility = 'hidden'; $('.face-back').style.visibility = 'visible';
+  state = 'ready';
+  env.addEventListener('click', () => { Music.play(); soundBtn.classList.add('on'); finishIntro(); });
+} else {
+  const rx = gsap.quickTo(tilt, 'rotationX', { duration: .9, ease: 'power3' });
+  const ry = gsap.quickTo(tilt, 'rotationY', { duration: .9, ease: 'power3' });
+  gsap.set(tilt, { transformPerspective: 1300 });
+  gsap.set(env, { transformPerspective: 1500 });
+  gsap.set('.flap', { transformPerspective: 900 });
+  gsap.set(invite, { transformPerspective: 1500 });
+  gsap.set('.inv-anim', { autoAlpha: 0, y: 14 });
+
+  // L'enveloppe suit la souris / le doigt
+  gate.addEventListener('pointermove', e => {
+    const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+    if (tiltOn) { rx(-y * 14); ry(x * 18); }
+    gate.style.setProperty('--lx', 50 + x * 30 + '%');
+    gate.style.setProperty('--ly', 50 + y * 30 + '%');
+    env.style.setProperty('--sx', 50 - x * 120 + '%');
+  });
+
+  // 1. La lettre tombe en virevoltant puis se retourne
+  function arrive() {
+    gsap.set(env, { y: -innerHeight * .8, rotation: -24, rotationX: 50, scale: .8, autoAlpha: 0 });
+    gsap.set('.env-shadow', { opacity: 0, scale: .3 });
+    gsap.set(['.g-top > *', '.g-hint'], { autoAlpha: 0, y: 16 });
+    gsap.timeline()
+      .to(env, { autoAlpha: 1, duration: .4 })
+      .to(env, { y: 0, duration: 2.6, ease: 'power2.out' }, 0)
+      .to(env, { rotationX: 0, scale: 1, duration: 2.6, ease: 'power3.out' }, 0)
+      .to(env, { keyframes: { rotation: [-24, 14, -7, 3, 0], ease: 'sine.inOut' }, duration: 2.6 }, 0)
+      .to('.env-shadow', { opacity: 1, scale: 1, duration: 2.6, ease: 'power2.out' }, 0)
+      .to('.g-top > *', { autoAlpha: 1, y: 0, stagger: .2, duration: 1.2, ease: 'power3.out' }, .8)
+      .to(env, { rotationY: 90, duration: .42, ease: 'power2.in' }, '+=.5')
+      .add(() => { $('.face-front').style.visibility = 'hidden'; $('.face-back').style.visibility = 'visible'; })
+      .fromTo(env, { rotationY: -90 }, { rotationY: 0, duration: .8, ease: 'back.out(1.6)', immediateRender: false })
+      .fromTo('.seal', { scale: 1.9, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .55, ease: 'power4.in' }, '-=.3')
+      .to('.seal', { scaleX: 1.07, scaleY: .93, duration: .09, yoyo: true, repeat: 1, ease: 'power1.inOut' })
+      .to('.g-hint', { autoAlpha: 1, y: 0, duration: 1 })
+      .add(() => {
+        state = 'ready';
+        idle = gsap.to(env, { y: -10, duration: 2.4, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+      });
+  }
+
+  // 2. Le sceau se brise, le rabat s'ouvre, la carte glisse hors de l'enveloppe
+  function openEnvelope() {
+    if (state !== 'ready') return;
+    state = 'opening';
+    Music.play(); soundBtn.classList.add('on');
+    idle && idle.kill();
+    const sr = $('#seal').getBoundingClientRect();
+    gsap.timeline()
+      .to(['.g-hint', '.g-top', '.g-skip'], { autoAlpha: 0, duration: .5 }, 0)
+      .to('.sheen', { autoAlpha: 0, duration: .3 }, 0)
+      .to(env, { y: 0, duration: .4, ease: 'power2.out' }, 0)
+      .to('#seal', { scale: .9, duration: .12, ease: 'power2.in' }, 0)
+      .add(() => {
+        SFX.crack();
+        FX.burst(sr.left + sr.width / 2, sr.top + sr.height / 2, 'crumb', 30, { speed: 5, g: .28, size: 4, decay: .012, colors: ['#922c2b', '#b0433e', '#6a1c1c', '#c8574f'] });
+      }, .12)
+      .to('.seal .l', { x: -34, y: 100, rotation: -60, autoAlpha: 0, duration: .95, ease: 'power2.in' }, .14)
+      .to('.seal .r', { x: 34, y: 120, rotation: 55, autoAlpha: 0, duration: .95, ease: 'power2.in' }, .14)
+      .to('.flapshade', { autoAlpha: 0, duration: .4 }, .45)
+      .add(SFX.flap, .45)
+      .to('.flap', { rotationX: 180, duration: 1.1, ease: 'power3.inOut' }, .45)
+      .set('.flap', { zIndex: 1 }, 1.0)
+      .add(SFX.slide, 1.4)
+      .to('.ecard', { yPercent: -72, duration: 1.4, ease: 'power3.inOut' }, 1.4)
+      .add(() => {
+        const r = env.getBoundingClientRect();
+        FX.burst(r.left + r.width / 2, r.top + r.height * .15, 'petal', 70, { angle: -Math.PI / 2, spread: 2.4, speed: 10, g: .07, size: 8, decay: .0035, colors: ['#f2d4cc', '#ead0b0', '#fbefe6', '#e3b9ae', '#e7cf9f', '#ffffff'] });
+      }, 1.95)
+      .add(revealCard, 2.8);
+  }
+
+  // 3. Le faire-part sort, grandit et se dévoile
+  function revealCard() {
+    const ecard = $('.ecard'), er = ecard.getBoundingClientRect(), ir = invite.getBoundingClientRect();
+    gsap.set(invite, {
+      x: er.left + er.width / 2 - (ir.left + ir.width / 2),
+      y: er.top + er.height / 2 - (ir.top + ir.height / 2),
+      scaleX: er.width / ir.width, scaleY: er.height / ir.height, autoAlpha: 1
+    });
+    gsap.set(ecard, { autoAlpha: 0 });
+    gsap.timeline()
+      .to(env, { y: innerHeight * .9, rotation: -8, duration: 1.3, ease: 'power3.in' }, 0)
+      .to(env, { autoAlpha: 0, duration: .4 }, .9)
+      .to(invite, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 1.7, ease: 'power3.inOut' }, .15)
+      .to(invite, { keyframes: { rotationX: [0, -16, 0], ease: 'sine.inOut' }, duration: 1.7 }, .15)
+      .to('.inv-cover', { autoAlpha: 0, duration: .7 }, 1.1)
+      .to('#invRing', { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 1.4)
+      .to('.inv-anim', { autoAlpha: 1, y: 0, stagger: .13, duration: 1, ease: 'power3.out' }, 1.5)
+      .add(() => {
+        const r = invite.getBoundingClientRect();
+        FX.burst(r.left + r.width / 2, r.top + r.height * .32, 'spark', 45, { speed: 4.5, g: -.01, size: 10, decay: .011, colors: ['#fff'] });
+      }, 1.8)
+      .add(() => { state = 'open'; });
+  }
+
+  // 4. On entre dans le site
+  function enterSite() {
+    if (state !== 'open') return;
+    state = 'entering'; tiltOn = false; rx(0); ry(0);
+    SFX.whoosh();
+    gsap.timeline({ onComplete: finishIntro })
+      .to(invite, { scale: 1.05, duration: .35, ease: 'power2.out' })
+      .to(invite, { scale: 3.5, autoAlpha: 0, duration: 1.2, ease: 'power3.in' })
+      .to('.g-flash', { opacity: 1, duration: .7, ease: 'power2.in' }, '-=.8')
+      .to(gate, { autoAlpha: 0, duration: 1, ease: 'power2.out' });
+  }
+
+  env.addEventListener('click', openEnvelope);
+  env.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), openEnvelope()));
+  $('#invBtn').addEventListener('click', enterSite);
+  $('#gSkip').addEventListener('click', () => gsap.to(gate, { autoAlpha: 0, duration: .8, onComplete: finishIntro }));
+
+  Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1500))]).then(arrive);
+}
 
 /* ---------- Hero intro ---------- */
 function heroIntro() {
